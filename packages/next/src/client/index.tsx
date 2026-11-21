@@ -158,6 +158,11 @@ class Container extends React.Component<{
   }
 
   componentDidUpdate() {
+    // Avoid overriding the browser's native scroll restoration on history popstate (e.g. back button)
+    // when returning to a page that originally had a hash in the URL.
+    if ((router as any).isPopState) {
+      return
+    }
     this.scrollToHash()
   }
 
