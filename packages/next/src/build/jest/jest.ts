@@ -223,6 +223,12 @@ export default function nextJest(options: { dir?: string } = {}) {
           '/.next/',
           ...(resolvedJestConfig.watchPathIgnorePatterns || []),
         ],
+        // Ensure the project root is explicitly in moduleDirectories so root-level
+        // manual mocks (__mocks__) are discovered by Jest when using next/jest
+        moduleDirectories: resolvedJestConfig.moduleDirectories || [
+          'node_modules',
+          '<rootDir>',
+        ],
       }
     }
   }
